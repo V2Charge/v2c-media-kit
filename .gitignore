@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+*.swp
+node_modules/
+.vscode/settings.json
+
+# Comerciales NO deberían commitear sus outputs locales al repo público
+output/campaign.json
+output/*.html
+!output/.gitkeep

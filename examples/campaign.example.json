@@ -1,0 +1,17 @@
+{
+  "name": "Formacion Trydan Pro - Madrid - Junio 2026",
+  "from_name": "V2C",
+  "from_email": "tu-email@v2charge.com",
+  "reply_to": "tu-email@v2charge.com",
+  "notes": "Generado a partir de la maestra Editorial. Adaptado para invitar a la formacion presencial del 15/06 en Saltoki Madrid. CTA apunta a https://v2charge.com/formacion-madrid - confirma URL exacta. Asumidos coste 'Gratuito' y duracion '4 horas'. Versiones generadas: ES (mayoria) y FR (instaladores zona pirenaica).",
+  "versions": {
+    "es": {
+      "subject": "Formacion Trydan Pro - 15 junio en Madrid",
+      "html": "<!-- HTML completo en espanol, basado en masters/editorial.html, con los placeholders {{...}} rellenos. El HTML debe ser un documento completo: <!DOCTYPE html>...<html>...</html> -->"
+    },
+    "fr": {
+      "subject": "Formation Trydan Pro - 15 juin a Madrid",
+      "html": "<!-- HTML completo en frances -->"
+    }
+  }
+}
