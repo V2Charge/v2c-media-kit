@@ -1,48 +1,48 @@
-# V2C Brand · Quick reference para email
+# V2C Brand · Quick reference for email
 
-Referencia rápida de la identidad V2C aplicada a estas plantillas. Para el manual completo, consulta [material gráfico oficial](https://v2charge.com/material-grafico).
+Quick reference for V2C visual identity applied to these templates. For the full corporate manual, see the [official graphic material](https://v2charge.com/material-grafico).
 
-## Paleta
+## Palette
 
-| Uso | Hex | Notas |
+| Use | Hex | Notes |
 |---|---|---|
-| Negro principal | `#0E0E0E` | Texto, botones primarios, fondos dark |
-| Blanco | `#ffffff` | Fondos light, texto sobre dark |
-| Gris fondo claro | `#F4F4F2` | Body background en plantillas light |
-| Gris fondo muy claro | `#F8F8F6` | Cards, secundarios sobre blanco |
-| Gris bordes | `#ECECEA` | Separadores, borders |
-| Gris texto secundario | `#7A7A78` | Captions, eyebrows, metadata |
-| Gris texto cuerpo | `#1F1F1F` | Texto largo de body |
+| Primary black | `#0E0E0E` | Text, primary buttons, dark backgrounds |
+| White | `#ffffff` | Light backgrounds, text on dark |
+| Light grey background | `#F4F4F2` | Body background in light templates |
+| Very light grey background | `#F8F8F6` | Cards, secondary surfaces on white |
+| Border grey | `#ECECEA` | Dividers, borders |
+| Secondary text grey | `#7A7A78` | Captions, eyebrows, metadata |
+| Body text grey | `#1F1F1F` | Long-form body text |
 
-**Nota:** la línea visual de estas plantillas es B&W minimalista. El rojo histórico V2C (`#e30613`) no se usa por defecto. Si una campaña necesita un color de acento, consulta con el equipo de comunicación.
+**Note:** the visual line of these templates is minimal B&W. The historical V2C red (`#e30613`) is not used by default. If a campaign needs an accent color, check with the communications team.
 
-## Tipografía
+## Typography
 
-- **Familia:** Montserrat (Google Fonts)
-- **Fallback en email:** `'Montserrat', Arial, sans-serif`
-- **Pesos usados:** 400 (regular), 600 (semibold), 700 (bold)
+- **Family:** Montserrat (Google Fonts)
+- **Email fallback:** `'Montserrat', Arial, sans-serif`
+- **Weights used:** 400 (regular), 600 (semibold), 700 (bold)
 
-> En clientes de email que no cargan webfonts (Outlook, Gmail por defecto, Apple Mail con privacidad activa), el sistema usa Arial automáticamente. Diseña los tamaños asumiendo Arial — Montserrat es un nice-to-have.
+> In email clients that don't load web fonts (Outlook, Gmail by default, Apple Mail with privacy protection), the system automatically falls back to Arial. Design font sizes assuming Arial — Montserrat is a nice-to-have.
 
-### Tratamiento editorial
+### Editorial treatment
 
-- **Eyebrows / labels** en mayúsculas, peso 600-700, con letter-spacing `0.14em` a `0.22em` según tamaño.
-- **Titulares** en peso 700, letter-spacing negativo (`-0.025em` a `-0.045em` para los display grandes), line-height ajustado (`0.92` a `1.05`).
-- **Cuerpo** en peso 400, line-height `1.6` a `1.7`.
+- **Eyebrows / labels:** uppercase, weight 600–700, letter-spacing `0.14em` to `0.22em` depending on size.
+- **Headlines:** weight 700, negative letter-spacing (`-0.025em` to `-0.045em` for large display), tight line-height (`0.92` to `1.05`).
+- **Body:** weight 400, line-height `1.6` to `1.7`.
 
-## Logotipos
+## Logos
 
-| Versión | URL | Uso |
+| Version | URL | Use |
 |---|---|---|
-| Negro | `https://v2charge.com/wp-content/uploads/2022/01/logotipo-v2c-black.png` | Plantillas light |
-| Blanco | `https://newsletter.v2charge.com/v2c-logo-white.png` | Plantillas dark |
-| SVG vectorial | [v2charge.com/material-grafico](https://v2charge.com/material-grafico) | Materiales fuera de email |
+| Black | `https://v2charge.com/wp-content/uploads/2022/01/logotipo-v2c-black.png` | Light templates |
+| White | `https://newsletter.v2charge.com/v2c-logo-white.png` | Dark templates |
+| SVG vector | [v2charge.com/material-grafico](https://v2charge.com/material-grafico) | Materials outside email |
 
-**Regla:** ancho típico en email = 56–64 px. No estires, no recolorees, no apliques `filter: brightness()` o `filter: invert()` (no funcionan en Gmail/Outlook).
+**Rule:** typical width in email = 56–64 px. Don't stretch, don't recolor, don't apply `filter: brightness()` or `filter: invert()` (they don't work in Gmail/Outlook).
 
-## Iconos de redes sociales
+## Social media icons
 
-URLs oficiales para usar en footers:
+Official URLs for use in footers:
 
 ```
 LinkedIn:  https://v2charge.com/wp-content/uploads/2023/06/v2c-linkedin.png
@@ -52,26 +52,26 @@ X:         https://v2charge.com/wp-content/uploads/2026/05/twitter-x.png
 YouTube:   https://v2charge.com/wp-content/uploads/2023/06/v2c-youtube.png
 ```
 
-Tamaño recomendado en email: 14 × 14 px.
+Recommended size in email: 14 × 14 px.
 
-## Estándares de email
+## Email standards
 
-Estas plantillas siguen las mejores prácticas para máxima compatibilidad:
+These templates follow best practices for maximum compatibility:
 
 - Layout: `<table role="presentation">` (no flex, no grid)
-- CSS inline obligatorio; solo se permiten `<style>` para media queries de móvil
-- Ancho del contenedor: **600 px** (industry standard)
-- Imágenes: URL absolutas, con `alt` text, formato PNG/JPG (no SVG inline)
-- Fuentes web vía `<link>`: opcional (Outlook las ignora, Gmail también — siempre fallback a Arial)
-- Pre-header oculto justo tras `<body>` para optimizar el preview del inbox
-- Footer legal RGPD/LSSI con CIF, dirección y baja, marcado como región LOCKED
+- Inline CSS mandatory; `<style>` blocks only for mobile media queries
+- Container width: **600 px** (industry standard)
+- Images: absolute URLs, with `alt` text, PNG/JPG format (no inline SVG)
+- Web fonts via `<link>`: optional (Outlook ignores them, so does Gmail — always rely on Arial fallback)
+- Hidden pre-header right after `<body>` to optimize inbox preview
+- GDPR/LSSI legal footer with VAT ID, address and unsubscribe, marked as LOCKED region
 
-## Datos legales V2C
+## V2C legal data
 
-Pie obligatorio (no modificar):
+Mandatory footer (do not modify):
 
 ```
-V2C · CIF B98496706
-Camí Nou 268, 46950 Xirivella, Valencia, España
+V2C · VAT ID B98496706
+Camí Nou 268, 46950 Xirivella, Valencia, Spain
 https://v2charge.com/privacy-policy/
 ```

@@ -1,239 +1,246 @@
-# Guía para asistentes IA · V2C Email Templates
+# AI Assistant Guide · V2C Email Templates
 
-Esta guía está dirigida a **asistentes de IA** (Claude, GPT, Cursor, Copilot…) que ayudan a adaptar las plantillas de email V2C para una comunicación concreta.
+This guide is for **AI assistants** (Claude, GPT, Cursor, Copilot…) helping adapt the V2C email templates for a specific communication.
 
-Si eres un desarrollador o partner adaptando una plantilla a mano, también te servirá como referencia técnica.
-
----
-
-## Tu misión
-
-Dado un briefing en lenguaje natural (lo que el usuario quiere comunicar), producir un archivo `output/campaign.json` con:
-
-- El HTML adaptado de una de las tres plantillas maestras (`masters/editorial.html`, `data.html`, `bold.html`)
-- Asunto en cada idioma solicitado
-- Versiones traducidas si el briefing menciona varios idiomas
-- Notas explicativas para que el usuario sepa qué decisiones tomaste
-
-El JSON resultante se puede subir a una plataforma de envío compatible (formato detallado más abajo).
+If you're a developer or partner customizing a template by hand, it also serves as a solid technical reference.
 
 ---
 
-## Flujo
+## Your job
 
-1. Lee el briefing del usuario.
-2. Elige la maestra que mejor encaja (o usa la que el usuario te indique).
-3. Adapta el HTML rellenando los placeholders de contenido (sección "Variables").
-4. Si hay varios idiomas, traduce el resultado.
-5. Genera asuntos atractivos por idioma (máx 60 caracteres, sin spam triggers).
-6. Escribe `output/campaign.json` con el schema indicado.
-7. Explica al usuario qué decisiones tomaste y qué debería revisar antes de enviar.
+Given a briefing in natural language (what the user wants to communicate), produce an `output/campaign.json` file with:
+
+- HTML adapted from one of the three master templates (`masters/editorial.html`, `data.html`, `bold.html`)
+- A subject line for each requested language
+- Translated versions when the briefing mentions multiple languages
+- Explanatory notes so the user knows what decisions you made
+
+The resulting JSON can be uploaded to a compatible email sending platform (schema below).
 
 ---
 
-## Reglas innegociables
+## Flow
 
-### 1. NO toques las regiones LOCKED
+1. Read the user's briefing.
+2. Pick the master that fits best (or use the one the user indicates).
+3. Adapt the HTML by filling in the content placeholders (see "Variables").
+4. If multiple languages are requested, translate the result.
+5. Generate compelling subject lines per language (max 60 chars, no spam triggers).
+6. Write `output/campaign.json` following the schema.
+7. Explain to the user what decisions you made and what they should review before sending.
 
-Cualquier bloque entre `<!-- LOCKED -->` y `<!-- /LOCKED -->` se copia **literal**. Contiene el footer legal obligatorio por RGPD/LSSI (CIF, dirección, política de privacidad, enlace de baja). Modificarlo es ilegal y rompe el mecanismo de bajas.
+---
 
-### 2. Variables Handlebars — no inventes nuevas
+## Non-negotiable rules
 
-Estas variables se sustituyen al enviar, **una por destinatario**. No las cambies, no inventes otras nuevas.
+### 1. NEVER touch LOCKED regions
 
-| Variable | Origen típico | Ejemplo |
+Any block between `<!-- LOCKED -->` and `<!-- /LOCKED -->` is copied **verbatim**. It contains the legally mandatory footer (VAT ID, registered address, privacy policy link, unsubscribe link) required by GDPR and Spanish LSSI. Modifying it is illegal and breaks the unsubscribe mechanism.
+
+### 2. Handlebars variables — don't invent new ones
+
+These variables are substituted at send time, **one per recipient**. Don't change them, don't invent new ones.
+
+| Variable | Typical source | Example |
 |---|---|---|
-| `{{firstname}}` | Nombre del destinatario | "Pedro" |
-| `{{lastname}}` | Apellido del destinatario | "García" |
-| `{{fullname}}` | Nombre completo | "Pedro García" |
-| `{{email}}` | Email del destinatario | "pedro@cliente.com" |
-| `{{company}}` | Empresa | "Acme S.L." |
-| `{{owner_firstname}}` | Nombre del responsable de cuenta | "Carlos" |
-| `{{owner_lastname}}` | Apellido del responsable | "Vidal" |
-| `{{owner_email}}` | Email del responsable | "carlos@v2charge.com" |
-| `{{owner_initials}}` | Iniciales del responsable | "CV" |
-| `{{unsubscribe_url}}` | URL de baja (solo dentro de LOCKED) | — |
+| `{{firstname}}` | Recipient's first name | "Peter" |
+| `{{lastname}}` | Recipient's last name | "Smith" |
+| `{{fullname}}` | Full name | "Peter Smith" |
+| `{{email}}` | Recipient's email | "peter@customer.com" |
+| `{{company}}` | Company | "Acme Ltd." |
+| `{{owner_firstname}}` | Account manager's first name | "Charles" |
+| `{{owner_lastname}}` | Account manager's last name | "Vidal" |
+| `{{owner_email}}` | Account manager's email | "charles@v2charge.com" |
+| `{{owner_initials}}` | Account manager's initials | "CV" |
+| `{{unsubscribe_url}}` | Unsubscribe URL (only inside LOCKED) | — |
 
-Si una variable no tiene valor para un destinatario concreto, se sustituye por cadena vacía — el HTML no se rompe, pero "Hola , esto..." queda raro. Asume `firstname` siempre presente o usa "Hola {{firstname}}," con coma.
+If a variable has no value for a specific recipient, it's substituted with an empty string — the HTML doesn't break, but "Hi , this..." looks odd. Either assume `firstname` is always present, or use "Hi {{firstname}}," with the comma.
 
-### 3. Placeholders de contenido (estos SÍ los rellenas)
+### 3. Content placeholders (these you DO fill in)
 
-Cada maestra tiene placeholders entre llaves para el contenido editable. Los listo por maestra al final.
+Each master has placeholders in curly braces for editable content. They're listed per master at the end of this document.
 
-### 4. Compatibilidad de clientes de email
+### 4. Email client compatibility
 
-Outlook (Windows) renderiza con un motor MSHTML antiguo. **NO uses:**
+Outlook (Windows) renders HTML with an old MSHTML engine. **DO NOT use:**
 
 - ❌ Flexbox (`display: flex`)
 - ❌ Grid (`display: grid`)
-- ❌ `gap` en tablas
+- ❌ `gap` on tables
 - ❌ CSS variables (`var(--x)`)
 - ❌ `position: absolute/relative`
-- ❌ `aspect-ratio` (usa width/height fijos)
+- ❌ `aspect-ratio` (use fixed width/height)
 - ❌ `text-wrap: balance`
-- ❌ `@import` de Google Fonts (Gmail los elimina)
-- ❌ `<style>` con reglas complejas (solo media queries básicas)
+- ❌ `@import` of Google Fonts (Gmail strips them)
+- ❌ `<style>` blocks with complex rules (only basic media queries)
 - ❌ `filter: brightness(0) invert(1)`
-- ❌ SVG inline (usa PNG)
+- ❌ Inline SVG (use PNG)
 
-**Usa siempre:**
+**Always use:**
 
-- ✅ Layout con `<table role="presentation">` + `<tr>` + `<td>`
-- ✅ CSS inline (`style="..."`)
-- ✅ Anchos fijos en `<td width="...">` y `<table width="...">`
-- ✅ `<table>` para columnas (no flex)
-- ✅ Logos PNG: negro `https://v2charge.com/wp-content/uploads/2022/01/logotipo-v2c-black.png` · blanco `https://newsletter.v2charge.com/v2c-logo-white.png`
-- ✅ Ancho del contenedor: **600px** máximo
-- ✅ Media query `@media screen and (max-width: 600px)` para móvil (esto sí va dentro de `<style>`)
-- ✅ Pre-header oculto después del `<body>`
+- ✅ `<table role="presentation">` + `<tr>` + `<td>` for layout
+- ✅ Inline CSS (`style="..."`)
+- ✅ Fixed widths in `<td width="...">` and `<table width="...">`
+- ✅ `<table>` for columns (not flex)
+- ✅ PNG logos: black `https://v2charge.com/wp-content/uploads/2022/01/logotipo-v2c-black.png` · white `https://newsletter.v2charge.com/v2c-logo-white.png`
+- ✅ Max container width: **600px**
+- ✅ `@media screen and (max-width: 600px)` media query for mobile (this DOES go inside `<style>`)
+- ✅ Hidden pre-header right after `<body>`
 
-### 5. Identidad de marca V2C
+### 5. V2C brand identity
 
-- **Tipografía:** `'Montserrat', Arial, sans-serif`. Montserrat solo renderiza en clientes que la carguen; el fallback Arial es lo que ven Outlook y Gmail por defecto. Diseña tamaños asumiendo Arial.
-- **Paleta:**
-  - Negro: `#0E0E0E`
-  - Blanco: `#ffffff`
-  - Gris fondo claro: `#F4F4F2`
-  - Gris fondo muy claro: `#F8F8F6`
-  - Gris bordes: `#ECECEA`
-  - Gris texto secundario: `#7A7A78`
-  - Gris cuerpo: `#1F1F1F`
-- **NO uses el rojo V2C** salvo que el briefing lo pida explícitamente. La línea visual de estas plantillas es B&W minimalista.
-- Mayúsculas con `letter-spacing` en eyebrows/labels (estilo editorial).
+- **Typeface:** `'Montserrat', Arial, sans-serif`. Montserrat only renders in clients that load it; Arial is the fallback Outlook and Gmail use by default. Design font sizes assuming Arial.
+- **Palette:**
+  - Black: `#0E0E0E`
+  - White: `#ffffff`
+  - Light grey background: `#F4F4F2`
+  - Very light grey background: `#F8F8F6`
+  - Border grey: `#ECECEA`
+  - Secondary text grey: `#7A7A78`
+  - Body text grey: `#1F1F1F`
+- **DO NOT use the V2C red** unless the briefing explicitly asks for it. The visual line of these templates is minimal B&W.
+- Uppercase with `letter-spacing` on eyebrows and labels (editorial style).
 
-### 6. Asunto (subject)
+### 6. Subject line
 
-- Máximo **60 caracteres** (idealmente 40–50).
-- En el idioma del email.
-- Sin spam triggers: ❌ MAYÚSCULAS, ❌ `!!!`, ❌ "GRATIS"/"FREE", ❌ `$$$`, ❌ "urgente".
-- Gancho claro y específico, sin clickbait.
+- Max **60 characters** (ideally 40–50).
+- In the email's language.
+- No spam triggers: ❌ ALL CAPS, ❌ `!!!`, ❌ "FREE", ❌ `$$$`, ❌ "urgent".
+- Clear, specific hook — no clickbait.
 
-Buenos ejemplos:
-- "Nuevo Trydan Pro: formación presencial en Madrid"
-- "Calendario de formaciones V2C - reserva tu plaza"
-- "Installer Summit '26 - 22 junio en Valencia"
+Good examples:
+- "Trydan Pro: in-person training in Madrid"
+- "V2C training calendar — book your spot"
+- "Installer Summit '26 — June 22nd in Valencia"
 
-### 7. Pre-header oculto
+### 7. Hidden pre-header
 
-Justo después del `<body>`:
+Right after `<body>`:
 
 ```html
 <span style="display:none;max-height:0;overflow:hidden;mso-hide:all;color:transparent;">
-  [Texto 50-80 caracteres que aparece como preview en el inbox]
+  [50-80 character text that appears as inbox preview]
 </span>
 ```
 
-El inbox muestra asunto + pre-header. No los dupliques, complementan.
+The inbox shows subject + pre-header. Don't duplicate them — they complement each other.
 
 ---
 
-## Schema del `output/campaign.json`
+## `output/campaign.json` schema
 
 ```json
 {
-  "name": "Nombre interno (no se envía al destinatario)",
+  "name": "Internal name (not sent to recipients)",
   "from_name": "V2C",
-  "from_email": "tu@email.com",
-  "reply_to": "tu@email.com",
-  "notes": "Explicación opcional: qué decisiones tomaste, qué revisar.",
+  "from_email": "your@email.com",
+  "reply_to": "your@email.com",
+  "notes": "Optional explanation: decisions you made, what to review.",
   "versions": {
-    "es": {
-      "subject": "Asunto en español",
-      "html": "<!DOCTYPE html>... HTML completo en español ..."
+    "en": {
+      "subject": "English subject line",
+      "html": "<!DOCTYPE html>... full HTML in English ..."
     },
-    "fr": {
-      "subject": "Sujet en français",
-      "html": "<!DOCTYPE html>... HTML complet ..."
+    "es": {
+      "subject": "Spanish subject line",
+      "html": "<!DOCTYPE html>... full HTML in Spanish ..."
     }
   }
 }
 ```
 
-**Reglas del JSON:**
+**JSON rules:**
 
-- `versions` tiene una clave por idioma. Códigos ISO: `es`, `fr`, `it`, `pt`, `de`, `nl`, `en`.
-- Al menos una versión obligatoria.
-- `html` es el documento completo (`<!DOCTYPE html>...</html>`), no un fragmento.
-- Las regiones LOCKED deben estar intactas con `{{unsubscribe_url}}` dentro.
+- `versions` has one key per language. ISO codes: `en`, `es`, `fr`, `it`, `pt`, `de`, `nl`.
+- At least one version required.
+- `html` is the complete document (`<!DOCTYPE html>...</html>`), not a fragment.
+- LOCKED regions must remain intact with `{{unsubscribe_url}}` inside.
 
 ---
 
-## Placeholders por maestra
+## Placeholders per master
 
 ### Editorial (`masters/editorial.html`)
 
-| Placeholder | Descripción | Ejemplo |
+| Placeholder | Description | Example |
 |---|---|---|
-| `{{edition_label}}` | Etiqueta superior derecha | "EDICIÓN · MAYO 2026" |
-| `{{kicker}}` | Eyebrow sobre el titular | "PROGRAMA OFFICIAL INSTALLER" |
-| `{{headline}}` | Frase después de "Hola {{firstname}}, " | "esto cambia tu manera de instalar." |
-| `{{hero_image_url}}` | URL absoluta del hero | `https://...png` |
-| `{{hero_image_alt}}` | Alt text del hero | "Sesión de formación V2C" |
-| `{{hero_caption}}` | Pie de foto pequeño | "Centros Saltoki e-solar..." |
-| `{{body_label}}` | Etiqueta lateral del cuerpo | "LA NOTA" |
-| `{{body_html}}` | Cuerpo del mensaje (HTML interno permitido: `<b>`, `<br>`) | "Lanzamos un calendario..." |
-| `{{meta_1_label}}` / `{{meta_1_value}}` | Primera meta (clave / valor) | "DURACIÓN" / "4 horas" |
-| `{{meta_2_label}}` / `{{meta_2_value}}` | Segunda meta | "FORMATO" / "Presencial" |
-| `{{meta_3_label}}` / `{{meta_3_value}}` | Tercera meta | "COSTE" / "Gratuito" |
-| `{{cta_url}}` | URL del botón principal | `https://v2charge.com/...` |
-| `{{cta_text}}` | Texto del botón | "RESERVAR MI PLAZA →" |
-| `{{cta_subtext}}` | Texto bajo el botón | "o responde a este correo" |
+| `{{lang}}` | Language code for `<html lang="...">` | "en" |
+| `{{preheader}}` | Hidden pre-header text | "What's new in V2C training this month." |
+| `{{edition_label}}` | Top-right label | "EDITION · MAY 2026" |
+| `{{kicker}}` | Eyebrow above headline | "OFFICIAL INSTALLER PROGRAM" |
+| `{{greeting}}` | Greeting word (incl. comma) | "Hi" or "Hola" |
+| `{{headline}}` | Phrase after "{{greeting}} {{firstname}}, " | "this changes the way you install." |
+| `{{hero_image_url}}` | Absolute hero image URL | `https://...png` |
+| `{{hero_image_alt}}` | Hero image alt text | "V2C training session" |
+| `{{hero_caption}}` | Small caption under hero | "Saltoki e-solar centers..." |
+| `{{body_label}}` | Sidebar body label | "THE NOTE" |
+| `{{body_html}}` | Body content (basic HTML allowed: `<b>`, `<br>`) | "We're launching..." |
+| `{{meta_1_label}}` / `{{meta_1_value}}` | First meta (key / value) | "DURATION" / "4 hours" |
+| `{{meta_2_label}}` / `{{meta_2_value}}` | Second meta | "FORMAT" / "In-person" |
+| `{{meta_3_label}}` / `{{meta_3_value}}` | Third meta | "COST" / "Free" |
+| `{{cta_url}}` | Primary button URL | `https://v2charge.com/...` |
+| `{{cta_text}}` | Button text | "BOOK MY SPOT →" |
+| `{{cta_subtext}}` | Text below button | "or reply to this email" |
 
 ### Data (`masters/data.html`)
 
-| Placeholder | Descripción |
+| Placeholder | Description |
 |---|---|
-| `{{preheader}}` | Texto del pre-header oculto |
-| `{{badge_text}}` | Badge superior derecho | "PRODUCT UPDATE" |
-| `{{hero_kicker}}` | Eyebrow del hero dark | "NUEVO · TRYDAN V3" |
-| `{{headline}}` | Titular grande blanco | "Más potencia,\nmisma instalación." |
-| `{{hero_body}}` | Párrafo tras "{{firstname}}, " | "te adelantamos las novedades..." |
+| `{{lang}}` | Language code for `<html lang="...">` |
+| `{{preheader}}` | Hidden pre-header text |
+| `{{badge_text}}` | Top-right badge — e.g. "PRODUCT UPDATE" |
+| `{{hero_kicker}}` | Dark hero eyebrow — e.g. "NEW · TRYDAN V3" |
+| `{{headline}}` | Big white headline — e.g. "More power,\nsame installation." |
+| `{{greeting}}` | Greeting word — e.g. "Hi" |
+| `{{hero_body}}` | Paragraph after "{{greeting}} {{firstname}}, " |
 | `{{hero_image_url}}`, `{{hero_image_alt}}` | Hero image |
-| `{{stat_N_value}}` / `{{stat_N_label}}` | 3 stats (N = 1, 2, 3) | "22 kW" / "POTENCIA MÁX." |
-| `{{features_label}}` | Etiqueta de la sección | "LO QUE CAMBIA PARA TI" |
-| `{{features_html}}` | Bloque HTML con las features. Estructura recomendada por feature: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #ECECEA;"><tr><td style="padding:14px 0;"><table><tr><td style="width:22px;..."><div style="width:22px;height:22px;border-radius:11px;background:#0E0E0E;color:#fff;text-align:center;line-height:22px;font-size:12px;font-weight:700;">✓</div></td><td style="padding-left:14px;font-family:..."><div style="font-size:14px;font-weight:600;">Título</div><div style="font-size:13px;color:#5A5A58;margin-top:2px;">Descripción</div></td></tr></table></td></tr></table>` |
-| `{{cta_primary_url}}` / `{{cta_primary_text}}` | Botón principal | "VER FICHA TÉCNICA" |
-| `{{cta_secondary_url}}` / `{{cta_secondary_text}}` | Botón secundario | "PEDIR UNIDAD DEMO" |
+| `{{stat_N_value}}` / `{{stat_N_label}}` | 3 stats (N = 1, 2, 3) — e.g. "22 kW" / "MAX POWER" |
+| `{{features_label}}` | Section label — e.g. "WHAT CHANGES FOR YOU" |
+| `{{features_html}}` | HTML block with the features. Recommended structure per feature: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #ECECEA;"><tr><td style="padding:14px 0;"><table><tr><td style="width:22px;"><div style="width:22px;height:22px;border-radius:11px;background:#0E0E0E;color:#fff;text-align:center;line-height:22px;font-size:12px;font-weight:700;">✓</div></td><td style="padding-left:14px;font-family:'Montserrat',Arial,sans-serif;"><div style="font-size:14px;font-weight:600;">Title</div><div style="font-size:13px;color:#5A5A58;margin-top:2px;">Description</div></td></tr></table></td></tr></table>` |
+| `{{cta_primary_url}}` / `{{cta_primary_text}}` | Primary button — e.g. "VIEW DATASHEET" |
+| `{{cta_secondary_url}}` / `{{cta_secondary_text}}` | Secondary button — e.g. "REQUEST DEMO UNIT" |
 
 ### Bold (`masters/bold.html`)
 
-| Placeholder | Descripción |
+| Placeholder | Description |
 |---|---|
-| `{{preheader}}` | Texto del pre-header oculto |
-| `{{eyebrow}}` | Etiqueta superior derecha | "SAVE THE DATE" |
-| `{{event_date_location}}` | Fecha + lugar | "22 · 06 · 2026 — VALENCIA" |
-| `{{display_headline}}` | Titular display gigante (puede usar `<br>` para saltos) |
+| `{{lang}}` | Language code for `<html lang="...">` |
+| `{{preheader}}` | Hidden pre-header text |
+| `{{eyebrow}}` | Top-right label — e.g. "SAVE THE DATE" |
+| `{{event_date_location}}` | Date + location — e.g. "22 · 06 · 2026 — VALENCIA" |
+| `{{display_headline}}` | Giant display headline (can use `<br>` for line breaks) |
 | `{{hero_image_url}}`, `{{hero_image_alt}}` | Hero image |
-| `{{hero_caption_left}}` / `{{hero_caption_right}}` | Pies de foto a izq/der | "City of Arts & Sciences" / "09:00 — 18:00" |
-| `{{message_html}}` | Mensaje después de "{{firstname}}, " |
-| `{{schedule_html}}` | Bloque HTML del programa. Estructura por fila: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid rgba(255,255,255,.08);"><tr><td style="padding:16px 0;width:70px;font-family:'Montserrat',Arial,sans-serif;font-size:13px;font-weight:700;color:#fff;">HORA</td><td style="padding:16px 0;font-family:...;font-size:14px;color:rgba(255,255,255,.85);">Descripción</td><td style="padding:16px 0;width:18px;color:rgba(255,255,255,.3);text-align:right;">→</td></tr></table>` |
-| `{{cta_url}}` / `{{cta_text}}` | Botón blanco grande | "CONFIRMAR ASISTENCIA →" |
-| `{{cta_subtext}}` | Texto pequeño bajo el botón | "Plazas limitadas a..." |
+| `{{hero_caption_left}}` / `{{hero_caption_right}}` | Captions left/right — e.g. "City of Arts & Sciences" / "09:00 — 18:00" |
+| `{{greeting}}` | Greeting word — e.g. "Hi" |
+| `{{message_html}}` | Message after "{{greeting}} {{firstname}}, " |
+| `{{schedule_html}}` | HTML block with the schedule. Structure per row: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid rgba(255,255,255,.08);"><tr><td style="padding:16px 0;width:70px;font-family:'Montserrat',Arial,sans-serif;font-size:13px;font-weight:700;color:#fff;">TIME</td><td style="padding:16px 0;font-family:'Montserrat',Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.85);">Description</td><td style="padding:16px 0;width:18px;color:rgba(255,255,255,.3);text-align:right;">→</td></tr></table>` |
+| `{{cta_url}}` / `{{cta_text}}` | Big white button — e.g. "CONFIRM ATTENDANCE →" |
+| `{{cta_subtext}}` | Small text below button — e.g. "Limited spots for Official Installers" |
 
 ---
 
-## Checklist antes de entregar
+## Checklist before delivering
 
-Antes de escribir `output/campaign.json`, verifica:
+Before writing `output/campaign.json`, verify:
 
-- [ ] El HTML está basado en una maestra de `masters/`
-- [ ] Las regiones `<!-- LOCKED -->...<!-- /LOCKED -->` están **idénticas** a la maestra original
-- [ ] `{{unsubscribe_url}}` aparece dentro del LOCKED footer
-- [ ] Variables Handlebars bien escritas (`{{firstname}}` no `{nombre}`, ni con espacios `{{ firstname }}`)
-- [ ] Hay pre-header oculto
-- [ ] Asunto < 60 caracteres, sin spam triggers, en el idioma correcto
-- [ ] No hay `display: flex`, `grid`, `aspect-ratio`, `text-wrap: balance`
-- [ ] Imágenes con URLs absolutas y `alt` text
-- [ ] Si hay varias versiones, todas cumplen los puntos anteriores
+- [ ] The HTML is based on a master from `masters/`
+- [ ] The `<!-- LOCKED -->...<!-- /LOCKED -->` regions are **identical** to the original master
+- [ ] `{{unsubscribe_url}}` appears inside the LOCKED footer
+- [ ] Handlebars variables are correctly written (`{{firstname}}` — not `{name}`, no spaces like `{{ firstname }}`)
+- [ ] Hidden pre-header is present
+- [ ] Subject < 60 characters, no spam triggers, correct language
+- [ ] No `display: flex`, `grid`, `aspect-ratio`, `text-wrap: balance`
+- [ ] Images have absolute URLs and `alt` text
+- [ ] If multiple versions, all of them pass the checks above
 
 ---
 
-## Después de generar
+## After generating
 
-Al terminar, explica al usuario **en lenguaje natural**:
+When done, explain to the user **in natural language**:
 
-1. Qué maestra elegiste y por qué.
-2. Qué cambios principales hiciste (asunto, hero, CTA, etc.).
-3. Qué supuestos hiciste que el usuario debería confirmar (ej. *"Asumí CTA a `https://v2charge.com/formacion-madrid` — confirma que la URL es correcta"*).
-4. Si hay traducciones, qué matices/diferencias tomaste por cada idioma.
-5. **Indícale qué hacer con el JSON**: subirlo a su plataforma de email compatible, o exportar el HTML de cada idioma para usarlo en otra herramienta.
+1. Which master you chose and why.
+2. The main changes you made (subject, hero, CTA, etc.).
+3. Any assumptions you made that the user should confirm (e.g. *"I assumed CTA points to `https://v2charge.com/training-madrid` — please confirm the URL is correct"*).
+4. If translations were included, any nuances or differences you took per language.
+5. **Tell them what to do with the JSON**: upload it to their compatible email platform, or export each language's HTML to use in another tool.

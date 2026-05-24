@@ -1,155 +1,157 @@
 # V2C Media Kit · Email
 
-Sistema de diseño de email oficial V2C. Plantillas, identidad y guías para uso por **V2C Official Installers**, distribuidores autorizados, partners de comunicación, agencias y medios.
+Official V2C email design system. Templates, brand identity and guidelines for use by **V2C Official Installers**, authorized distributors, communication partners, agencies and press.
 
-Este repositorio complementa el [material gráfico oficial V2C](https://v2charge.com/material-grafico) (logos, vídeos, manual de identidad) con el componente específico de email.
+This repository complements the [official V2C graphic material](https://v2charge.com/material-grafico) (logos, videos, identity manual) with the email-specific component.
 
 ---
 
-## ¿Qué contiene?
+## What's inside
 
-Tres plantillas de email HTML listas para producción, basadas en la identidad visual V2C:
+Three production-ready HTML email templates based on the V2C visual identity:
 
-| Plantilla | Uso recomendado | Estilo |
+| Template | Best for | Style |
 |---|---|---|
-| **Editorial** | Newsletters, comunicados periódicos | Magazine refinado, fondo claro, mucho aire |
-| **Data** | Anuncios de producto, actualizaciones técnicas | Stats + features + firma del responsable |
-| **Bold** | Eventos, lanzamientos, invitaciones | Dark, dramático, foco en una sola idea |
+| **Editorial** | Newsletters, periodic updates | Refined magazine, light background, generous whitespace |
+| **Data** | Product announcements, technical updates | Stats + features + account manager signature |
+| **Bold** | Events, launches, invitations | Dark, dramatic, single-focus message |
 
-Todas las plantillas siguen los estándares de email marketing profesional: layout en `<table>`, CSS inline, ancho 600 px, compatibilidad con Outlook, Gmail, Apple Mail y clientes móviles, footer legal RGPD/LSSI y soporte para personalización por destinatario.
-
----
-
-## ¿A quién va dirigido?
-
-- 🔧 **V2C Official Installers** que quieren comunicar a su cartera de clientes manteniendo coherencia con la marca V2C.
-- 📦 **Distribuidores** autorizados que envían comunicaciones sobre producto V2C.
-- 🎨 **Agencias y partners** de comunicación que diseñan campañas para V2C.
-- 📰 **Prensa y medios** que necesitan materiales de referencia visual.
+All templates follow professional email standards: `<table>`-based layout, inline CSS, 600px width, Outlook/Gmail/Apple Mail compatibility, mobile-responsive, RGPD/LSSI-compliant footer, and per-recipient personalization.
 
 ---
 
-## Empezar
+## Who is this for?
 
-### Opción A — Descarga directa
+- 🔧 **V2C Official Installers** communicating with their end-customer base while keeping V2C brand consistency
+- 📦 **Authorized distributors** sending product or service communications
+- 🎨 **Agencies and partners** producing V2C campaigns
+- 📰 **Press and media** needing visual reference materials
 
-Clica el botón verde **"Code"** arriba a la derecha → **"Download ZIP"**. Te llevas las plantillas, las personalizas en tu editor HTML favorito, y las usas en tu plataforma de envío habitual (Mailchimp, HubSpot, Brevo, Resend, etc.).
+---
 
-### Opción B — Git (recomendado si lo vas a usar varias veces)
+## Getting started
+
+### Option A — Direct download
+
+Click the green **"Code"** button above → **"Download ZIP"**. You'll get the templates, customize them in your favorite HTML editor, and use them in your usual sending platform (Mailchimp, HubSpot, Brevo, Resend, etc.).
+
+### Option B — Git (recommended for repeated use)
 
 ```bash
 git clone https://github.com/V2Charge/v2c-media-kit.git
 cd v2c-media-kit
 ```
 
-### Opción C — Asistido por IA (más rápido)
+### Option C — AI-assisted (fastest)
 
-Si trabajas habitualmente con un asistente de IA (Claude, ChatGPT, Cursor, Copilot…), abre la carpeta en tu editor con plugin de IA y pídele en lenguaje natural:
+If you usually work with an AI assistant (Claude, ChatGPT, Cursor, Copilot…), open the folder in your AI-enabled editor and ask in natural language:
 
-> *"Adapta la maestra Editorial para anunciar una formación presencial sobre Trydan Pro el 15 de junio en Madrid, CTA a registrarse. Idiomas español y francés."*
+> *"Adapt the Editorial template for a hands-on training session about Trydan Pro on June 15th in Madrid. CTA: register. Languages: English, Spanish, French."*
 
-El archivo [`CLAUDE.md`](./CLAUDE.md) le enseña a la IA cómo respetar la identidad V2C, mantener el footer legal intacto y producir HTML email-compatible. Es una guía pensada para LLMs pero también es una buena referencia técnica si lo haces a mano.
+The [`CLAUDE.md`](./CLAUDE.md) file teaches the AI how to preserve V2C brand consistency, keep the legal footer intact, and produce email-compatible HTML. It's written for LLMs but also serves as a solid technical reference if you customize templates by hand.
 
 ---
 
-## Estructura
+## Structure
 
 ```
 masters/
-  editorial.html     ← Plantilla A
-  data.html          ← Plantilla B
-  bold.html          ← Plantilla C
+  editorial.html     ← Template A
+  data.html          ← Template B
+  bold.html          ← Template C
 examples/
   campaign.example.json
-output/              ← Donde dejas tu trabajo personalizado (vacío por defecto)
-CLAUDE.md            ← Guía técnica para asistentes IA y desarrolladores
+output/              ← Where your customized work goes (empty by default)
+CLAUDE.md            ← Technical guide for AI assistants and developers
+BRAND.md             ← Quick visual identity reference
+LICENSE
 README.md
 ```
 
 ---
 
-## Personalización
+## Customization
 
-Cada plantilla usa **variables Handlebars** (`{{firstname}}`, `{{cta_url}}`, etc.) que puedes:
+Each template uses **Handlebars variables** (`{{firstname}}`, `{{cta_url}}`, etc.) that you can:
 
-- **Sustituir manualmente** antes de enviar el correo (busca y reemplaza)
-- **Dejarlas tal cual** si tu plataforma de envío soporta merge tags Handlebars (Resend, HubSpot Marketing Email, Mailchimp con conversión, etc.)
-- **Generar un JSON estructurado** con tu asistente de IA listo para subir a una plataforma compatible
+- **Replace manually** before sending (find-and-replace)
+- **Leave as-is** if your sending platform supports Handlebars merge tags (Resend, HubSpot Marketing Email, Mailchimp with conversion, etc.)
+- **Generate a structured JSON** with your AI assistant, ready to upload to a compatible platform
 
-Variables comunes:
+Common variables:
 
-| Variable | Significado |
+| Variable | Meaning |
 |---|---|
-| `{{firstname}}` | Nombre del destinatario |
-| `{{lastname}}` | Apellido del destinatario |
-| `{{company}}` | Empresa del destinatario |
-| `{{owner_firstname}}` | Tu nombre (o el del responsable de cuenta) |
-| `{{owner_email}}` | Tu email de contacto |
-| `{{cta_url}}` | URL del botón principal |
-| `{{unsubscribe_url}}` | URL de baja de la lista (obligatorio por RGPD) |
+| `{{firstname}}` | Recipient's first name |
+| `{{lastname}}` | Recipient's last name |
+| `{{company}}` | Recipient's company |
+| `{{owner_firstname}}` | Your first name (or the account manager's) |
+| `{{owner_email}}` | Your contact email |
+| `{{cta_url}}` | Primary button URL |
+| `{{unsubscribe_url}}` | Unsubscribe link (mandatory under GDPR) |
 
-Lista completa con todos los placeholders de contenido en [`CLAUDE.md`](./CLAUDE.md).
-
----
-
-## Identidad visual
-
-Estas plantillas siguen el [manual de identidad corporativa V2C](https://v2charge.com/material-grafico). Resumen rápido:
-
-- **Tipografía:** Montserrat (con fallback Arial para email)
-- **Paleta:** Negro `#0E0E0E`, blanco `#ffffff`, grises `#F4F4F2` / `#ECECEA` / `#7A7A78`
-- **Logos:** [versión negra](https://v2charge.com/wp-content/uploads/2022/01/logotipo-v2c-black.png) · [versión blanca](https://newsletter.v2charge.com/v2c-logo-white.png) · [SVG vectorial](https://v2charge.com/material-grafico)
-- **Tono:** B&W minimalista, editorial, mayúsculas con letter-spacing en eyebrows
+Complete list of all content placeholders in [`CLAUDE.md`](./CLAUDE.md).
 
 ---
 
-## Footer legal
+## Visual identity
 
-Todas las plantillas incluyen un **bloque de footer legal** marcado con comentarios `<!-- LOCKED -->...<!-- /LOCKED -->`. Contiene:
+These templates follow the [V2C corporate identity manual](https://v2charge.com/material-grafico). Quick summary:
 
-- CIF B98496706
-- Domicilio: Camí Nou 268, 46950 Xirivella, Valencia
-- Enlace a la [política de privacidad](https://v2charge.com/privacy-policy/)
-- Variable de baja (`{{unsubscribe_url}}`)
-- Iconos de redes sociales V2C
-
-**No modifiques este bloque** — es obligatorio por RGPD/LSSI y la baja debe funcionar técnicamente. Si necesitas adaptarlo (cambiar la dirección si eres un distribuidor en otro país, por ejemplo), contacta primero con el equipo de comunicaciones V2C.
+- **Typeface:** Montserrat (with Arial fallback for email)
+- **Palette:** Black `#0E0E0E`, white `#ffffff`, greys `#F4F4F2` / `#ECECEA` / `#7A7A78`
+- **Logos:** [black version](https://v2charge.com/wp-content/uploads/2022/01/logotipo-v2c-black.png) · [white version](https://newsletter.v2charge.com/v2c-logo-white.png) · [SVG vector](https://v2charge.com/material-grafico)
+- **Tone:** B&W minimal, editorial, uppercase eyebrows with letter-spacing
 
 ---
 
-## Licencia y uso
+## Legal footer
 
-Estas plantillas son **propiedad de V2C** y se ofrecen libremente para uso por:
+All templates include a **legal footer block** marked with `<!-- LOCKED -->...<!-- /LOCKED -->` comments. It contains:
 
-- V2C Official Installers en sus comunicaciones a clientes finales
-- Distribuidores autorizados V2C
-- Agencias y partners contratados por V2C
-- Prensa y medios para referencia
+- VAT ID B98496706
+- Registered address: Camí Nou 268, 46950 Xirivella, Valencia, Spain
+- Link to the [privacy policy](https://v2charge.com/privacy-policy/)
+- Unsubscribe variable (`{{unsubscribe_url}}`)
+- V2C social media icons
 
-No se permite el uso por terceros no autorizados ni la modificación del logo, footer legal o identidad de marca. Para usos comerciales fuera de los anteriores, contacta con el equipo de comunicaciones V2C.
+**Do not modify this block** — it's required under GDPR / Spanish LSSI law, and the unsubscribe mechanism must remain functional. If you need to adapt it (e.g. you're an authorized distributor in another country with your own legal entity), contact the V2C communications team first.
 
 ---
 
-## Contacto
+## License and usage
 
-Para añadir nuevas plantillas, corregir algo, o cualquier consulta sobre identidad de marca:
+These templates are **V2C property** and are made freely available for use by:
 
-📧 **comunicacion@v2charge.com** — equipo de Comunicación y Marketing V2C
-🌐 **[v2charge.com/material-grafico](https://v2charge.com/material-grafico)** — todo el material gráfico oficial
+- V2C Official Installers in communications to their end customers
+- V2C authorized distributors
+- Agencies and partners contracted by V2C
+- Press and media for reference
+
+Use by unauthorized third parties is not permitted, nor is modification of the logo, legal footer or brand identity. For commercial use outside the above, contact the V2C communications team.
+
+---
+
+## Contact
+
+To request new templates, report issues, or for any brand identity inquiries:
+
+📧 **comunicacion@v2charge.com** — V2C Communications and Marketing team
+🌐 **[v2charge.com/material-grafico](https://v2charge.com/material-grafico)** — full official graphic material
 
 ---
 
 <details>
-<summary><sub>Información para el equipo V2C</sub></summary>
+<summary><sub>Information for the V2C team</sub></summary>
 
 <br>
 
-Si formas parte del equipo V2C (Official Installer, distribuidor, comunicación interna), tienes acceso a la plataforma de envío interna donde puedes subir el `output/campaign.json` directamente, elegir tu segmento de contactos en HubSpot, y enviar — sin tocar HTML.
+If you're part of the V2C team (Official Installer, distributor, internal communications), you have access to the internal sending platform where you can upload the `output/campaign.json` directly, choose your HubSpot contact segment, and send — without touching HTML.
 
-Pídele acceso a tu responsable o consulta el portal interno.
+Ask your manager for access or check the internal portal.
 
 </details>
 
 ---
 
-<sub>V2C · CIF B98496706 · Camí Nou 268, 46950 Xirivella, Valencia, España</sub>
+<sub>V2C · VAT ID B98496706 · Camí Nou 268, 46950 Xirivella, Valencia, Spain</sub>

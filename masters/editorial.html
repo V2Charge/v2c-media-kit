@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="{{lang}}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +22,7 @@
 </head>
 <body style="margin:0;padding:0;background:#F4F4F2;font-family:'Montserrat',Arial,sans-serif;color:#0E0E0E;">
   <span style="display:none;max-height:0;overflow:hidden;mso-hide:all;color:transparent;">
-    Las novedades técnicas y formativas que llegan a tu próximo proyecto V2C.
+    {{preheader}}
   </span>
 
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F4F4F2;">
@@ -56,7 +56,7 @@
             </tr>
           </table>
           <h1 class="headline" style="margin:22px 0 0 0;font-family:'Montserrat',Arial,sans-serif;font-size:44px;line-height:1.02;letter-spacing:-0.035em;font-weight:700;color:#0E0E0E;">
-            Hola {{firstname}}, {{headline}}
+            {{greeting}} {{firstname}}, {{headline}}
           </h1>
         </td></tr>
 
@@ -148,13 +148,13 @@
                 <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(14,14,14,.55);margin-bottom:8px;font-weight:600;">V2C Official Installer</div>
                 <div style="font-size:13px;line-height:1.6;color:#0E0E0E;opacity:0.85;">
                   Camí Nou 268, 46950 Xirivella<br />
-                  Valencia · España · CIF B98496706
+                  Valencia · Spain · VAT B98496706
                 </div>
               </td>
               <td align="right" valign="top" style="font-family:'Montserrat',Arial,sans-serif;font-size:12px;line-height:1.8;color:rgba(14,14,14,.55);">
-                <a href="https://v2charge.com/es/conectar/" style="color:rgba(14,14,14,.55);text-decoration:none;display:block;">¿Conectamos?</a>
-                <a href="https://v2charge.com/privacy-policy/" style="color:rgba(14,14,14,.55);text-decoration:none;display:block;">Política de privacidad</a>
-                <a href="{{unsubscribe_url}}" style="color:rgba(14,14,14,.55);text-decoration:underline;">Dar de baja</a>
+                <a href="https://v2charge.com/contact/" style="color:rgba(14,14,14,.55);text-decoration:none;display:block;">Get in touch</a>
+                <a href="https://v2charge.com/privacy-policy/" style="color:rgba(14,14,14,.55);text-decoration:none;display:block;">Privacy policy</a>
+                <a href="{{unsubscribe_url}}" style="color:rgba(14,14,14,.55);text-decoration:underline;">Unsubscribe</a>
               </td>
             </tr>
           </table>
