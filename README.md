@@ -10,13 +10,27 @@ This repository complements the [official V2C graphic material](https://v2charge
 
 Three production-ready HTML email templates based on the V2C visual identity:
 
-| Template | Best for | Style |
-|---|---|---|
-| **Editorial** | Newsletters, periodic updates | Refined magazine, light background, generous whitespace |
-| **Data** | Product announcements, technical updates | Stats + features + account manager signature |
-| **Bold** | Events, launches, invitations | Dark, dramatic, single-focus message |
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="./masters/editorial.html"><img src="./previews/editorial.png" alt="Editorial template preview" width="280" /></a>
+      <br><br><strong>Editorial</strong>
+      <br><sub>Newsletters, periodic updates.<br>Refined magazine, light background.</sub>
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="./masters/data.html"><img src="./previews/data.png" alt="Data template preview" width="280" /></a>
+      <br><br><strong>Data</strong>
+      <br><sub>Product announcements, technical updates.<br>Stats + features + signature.</sub>
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="./masters/bold.html"><img src="./previews/bold.png" alt="Bold template preview" width="280" /></a>
+      <br><br><strong>Bold</strong>
+      <br><sub>Events, launches, invitations.<br>Dark, dramatic, single focus.</sub>
+    </td>
+  </tr>
+</table>
 
-All templates follow professional email standards: `<table>`-based layout, inline CSS, 600px width, Outlook/Gmail/Apple Mail compatibility, mobile-responsive, RGPD/LSSI-compliant footer, and per-recipient personalization.
+All templates follow professional email standards: `<table>`-based layout, inline CSS, 600px width, Outlook/Gmail/Apple Mail compatibility, mobile-responsive, GDPR-compliant footer, and per-recipient personalization.
 
 ---
 
